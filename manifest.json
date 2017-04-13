@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "VLCify",
+  "description": "Add VLC Like Keyboard Controls to any video!",
+  "version": "0.1",
+
+  "icons": {
+    "16": "icons/icon-16.jpg",
+    "128": "icons/icon-128.png"
+   },
+
+  "browser_action": {
+    "default_icon": "icons/icon.png",
+    "default_popup": "popup/popup.html",
+    "default_title": "Take Control."
+  },
+
+  "content_scripts":
+	[
+		{
+			"matches": ["*://*/*"],
+			"js": ["content/player.js"],
+			"run_at": "document_end"
+		}
+	],
+
+  "permissions": [
+    "activeTab"
+  ]
+}
