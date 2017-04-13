@@ -1,4 +1,4 @@
-let video;
+let video = document.querySelector('video');
 let body = document.querySelector('body');
 let speed =1;
 let time;
@@ -68,7 +68,7 @@ function selectVideo() {
 }
 //TODO - Avoid Polling - Read onpopstate
 setInterval(()=>{
-  if(href !== window.location.href) {
+  if(href !== window.location.href || video !== document.querySelector('video')) {
     //console.log("href changed.");
     href = window.location.href;
     selectVideo();

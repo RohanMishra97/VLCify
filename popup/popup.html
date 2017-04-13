@@ -7,8 +7,49 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style media="screen">
+      body {
+        background-color: #f7ede1;
+      }
+      h3 {
+        color: orange;
+        text-align: center;
+        padding-left: 10px;
+      }
+      .speedbox {
+        float: none;
+        display: inline-block;
+        vertical-align: middle;
+        text-align:center;
+        font-size: 20px;
+      }
+      #speed {
+        width: 140px;
+        text-align:center;
+        font-size: 30px;
+      }
+      #play {
+        align-items: center;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <script src="popup.js" charset="utf-8"></script>
   </head>
   <body>
-    <p>Hello!</p>
+      <h3>VLCify! <img src="../icons/icon.png" alt="logo" width="40px"></h3>
+      <div class="btn-group" style="display:inline-block text-align:center">
+        <span class="speedbox">
+          <label for="speed">Speed-</label>
+          <input type="number" name="speed" class="inputsm" value="1.0" step="0.2" id="speed">
+        </span>
+        <span class="play">
+          <button type="button" name="button" id="play">
+            <span class="glyphicon glyphicon-play pp"></span>
+          </button>
+        </span>
+      </div>
   </body>
 </html>
