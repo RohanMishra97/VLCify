@@ -1,21 +1,17 @@
 let video = document.querySelector('video');
 let body = document.querySelector('body');
 let speed =1;
-let time;
-let href = window.location.href;
+let href = '';
 
-function pp(){
-  //console.log("Play/Pause not working now.")
+function pp(e){
+  if(e.cancelable) {
+    //console.log('Propagation Stopped #8');
+    e.stopImmediatePropagation();
+  }
   if(video.paused) {
-    setTimeout(function() {
-      if(video.paused)
-        video.play();
-    },1000);
+    video.play()
   }  else {
-    setTimeout(()=>{
-      if(!(video.paused))
-        video.pause();
-    },1000);
+    video.pause()
   }
 }
 
@@ -26,17 +22,17 @@ function setSpeed(speed){
 }
 
 function keyboard(e) {
-  //console.log(e.keyCode)
-  switch(e.keyCode){
-   case 221:
+  //console.log(e.key)
+  switch(e.key){
+   case ']':
      speed+= 0.3;
      setSpeed(speed);
      break;
-   case 219:
+   case '[':
      speed-=0.3;
      setSpeed(speed);
      break;
-    case 37:
+    case "ArrowLeft":
       time = video.currentTime;
       setTimeout(()=>{
         if(video.currentTime === (time+0.5)) {
@@ -44,33 +40,47 @@ function keyboard(e) {
         }
       },500);//pp();
       break;
-    case 39:
+    case "ArrowRight":
       time = video.currentTime;
       setTimeout(()=>{
         if(video.currentTime === (time+0.5)) {
           video.currentTime += 5;
         }
       },500);//pp();
-      break;
+      break; 
   }
+}
 
-};
+
 function selectVideo() {
   video = document.querySelector('video');
-  if(video === null) {
-    console.log("No Video Found.")
-  }
-  else {
-    console.log("Video Found.")
+  if(video !== null) {
     video.addEventListener('click',pp);
     body.addEventListener('keydown',keyboard);
   }
 }
 //TODO - Avoid Polling - Read onpopstate
 setInterval(()=>{
-  if(href !== window.location.href || video !== document.querySelector('video')) {
-    //console.log("href changed.");
+  if(href !== window.location.href) {
     href = window.location.href;
     selectVideo();
+
   }
+
 },1000)
+
+chrome.runtime.onMessage.addListener(receiver);
+function receiver(request, sender, sendResponse) {
+  if(request.from === 'popup') {
+    video = document.querySelector('video');
+    if(video !== null) {
+      if(request.pval !== 'flag') {
+        video.click();
+      } else if(request.sval !== 'flag') {
+        setSpeed(request.sval);
+      }
+    }
+  }
+}
+
+
