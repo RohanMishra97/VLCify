@@ -6,7 +6,9 @@ let href = '';
 //Sends Messages to Popup.
 function messagePopup(a,b) {
   chrome.runtime.sendMessage({pval: a,sval: b,from: 'content'},function(response){
-    console.log("Popup says- ",response.status);
+    if(response){
+      console.log("Popup says- ",response.status);
+    }
   });
 }
 //pp() handles Play and Pause
@@ -26,6 +28,7 @@ function pp(e){
 function setSpeed(speed){
   //console.log("Speed feature not working now.")
   video.playbackRate = speed;
+  console.clear();
   console.log(`Playing at ${speed}x`);
   messagePopup(!video.paused,video.playbackRate)
 }
@@ -85,6 +88,7 @@ function receiver(request,sender,sendResponse) {
         }
         if(request.sval !== video.playbackRate) {
           video.playbackRate = request.sval;
+          console.clear();
           console.log(`Playing at ${request.sval}x`);
           sendResponse({status:"Speed set."})
         }
